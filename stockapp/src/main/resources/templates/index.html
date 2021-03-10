@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="ISO-8859-1">
+<title>Hisseler</title>
+</head>
+<body>
+<div align="center">	
+	<div sec:authorize="isAuthenticated()">
+		Welcome <b><span sec:authentication="name">Username</span></b>
+		&nbsp;
+		<i><span sec:authentication="principal.authorities">Roles</span></i>
+	</div>
+		
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Logout" />
+	</form>
+	
+	<h1>Hisseler</h1>
+	<div sec:authorize="hasAnyAuthority('ADMIN')">
+		<a href="new">Yeni hisse ekle</a>
+	</div>
+	
+	<br/><br/>
+	<table border="1" cellpadding="10">
+		<thead>
+			<tr>
+				<th>Stock ID</th>
+				<th>Kod</th>
+				<th>Isim</th>
+				<th>Ucret</th>
+				<th>Tarih</th>
+				
+				<th sec:authorize="hasAnyAuthority('ADMIN')">Yetkiler</th>				
+				
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="stock : ${listStocks}">
+				<td th:text="${stock.id}">Stock ID</td>
+				<td th:text="${stock.kod}">Kod</td>
+				<td th:text="${stock.isim}">Isim</td>
+				<td th:text="${stock.ucret}">Ucret</td>
+				<td th:text="${stock.tarih}">Tarih</td>
+				
+				<td sec:authorize="hasAnyAuthority('ADMIN')">
+					<a th:href="@{'/edit/' + ${stock.id}}">Guncelle</a>			
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					<a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/delete/' + ${stock.id}}">Sil</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+</body>
+</html>

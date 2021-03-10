@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Guncelle</title>
+</head>
+<body>
+	<div align="center">
+		<h1>Guncelle</h1>
+		<br/>
+		<form action="#" th:action="@{/save}" th:object="${stock}" method="post">
+			<table border="0" cellpadding="10">
+				<tr>
+					<td>Stock ID:</td>
+					<td><input type="text" th:field="*{id}" readonly="readonly" /></td>
+				</tr>			
+				<tr>
+					<td>Kod:</td>
+					<td><input type="text" th:field="*{kod}" /></td>
+				</tr>
+				<tr>
+					<td>Isim:</td>
+					<td><input type="text" th:field="*{isim}" /></td>
+				</tr>				
+				<tr>
+					<td>Ucret:</td>
+					<td><input type="text" th:field="*{ucret}" /></td>
+				</tr>				
+				<tr>
+					<td>Tarih:</td>
+					<td><input type="text" th:field="*{tarih}" /></td>
+				</tr>				
+				<tr>
+					<td colspan="2"><button type="submit">Kaydet</button></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</body>
+</html>
